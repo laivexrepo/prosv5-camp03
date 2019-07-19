@@ -13,14 +13,19 @@
  */
  #define LEFT_WHEELS_PORT 1
  #define RIGHT_WHEELS_PORT 10
- #define MOTOR_MAX_SPEED 100 // The motor has the 36 Gearset
+ #define MOTOR_MAX_SPEED 50 // The motor has the 36 Gearset
 
  void autonomous() {
-   pros::Motor left_wheels (LEFT_WHEELS_PORT, MOTOR_GEARSET_36);
-   pros::Motor right_wheels (RIGHT_WHEELS_PORT, MOTOR_GEARSET_36, true); // This reverses the motor
+   pros::Motor left_wheels (LEFT_WHEELS_PORT, MOTOR_GEARSET_18, false, pros::E_MOTOR_ENCODER_DEGREES);
+   pros::Motor right_wheels (RIGHT_WHEELS_PORT, MOTOR_GEARSET_18, true, pros::E_MOTOR_ENCODER_DEGREES); // This reverses the motor
 
    std::cout << "Moving autonomous \n";       // Show to the terminal Debug info
+   std::cout << "Motor Position: " << left_wheels.get_position() << "Right: " << right_wheels.get_position() << "\n";
 
    right_wheels.move_relative(1000, MOTOR_MAX_SPEED);
    left_wheels.move_relative(1000, MOTOR_MAX_SPEED);
+   pros::delay(4000);
+   std::cout << "Motor Position: " << left_wheels.get_position() << "Right: " << right_wheels.get_position() << "\n";
+
+   left_wheels.move_relative(360, MOTOR_MAX_SPEED);
  }
